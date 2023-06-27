@@ -1,0 +1,23 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devstart": "nodemon --watch"
+  },
+  "author": "ErissonAndrade",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "luxon": "^3.3.0",
+    "mongoose": "^7.3.1",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1"
+  }
+}
