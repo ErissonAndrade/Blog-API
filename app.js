@@ -2,8 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv/config';
-import postsRouter from './routes/posts.js'
-import commentsRouter from './routes/comments.js'
+import commentsRouter from './routes/comments.js';
+import postsRouter from './routes/posts.js';
+
 
 const mongoDB = `mongodb+srv://${process.env.USER_ID}:${process.env.USER_PASSWORD}@cluster0.ifu8n0w.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -25,6 +26,6 @@ app.get("/", (req, res) => {
 
 app.use("/posts", postsRouter);
 
-app.use('/posts/:id/comments', commentsRouter)
+app.use("/posts/:postid/comments", commentsRouter)
 
 app.listen(3000);

@@ -7,7 +7,7 @@ const PostsSchema = new Schema({
     title: {type: String, required: true},
     date: { type: Date, required: true},
     text: { type: String, required: true},
-    comments: { type: Schema.Types.ObjectId, ref: "Comments"}
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comments"}]
 });
 
 PostsSchema.virtual('date_formatted').get(function() {
@@ -16,7 +16,8 @@ PostsSchema.virtual('date_formatted').get(function() {
     return `${dateFormatted} ${timeFormatted}`
 });
 
-export default mongoose.model('Posts', PostsSchema);
+export default  mongoose.model('Posts', PostsSchema);
+
 
 
 

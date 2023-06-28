@@ -3,11 +3,11 @@ const allComments_get = (req, res) => {
 };
 
 const comment_get = (req, res) => {
-    res.send("Single Comment")
+    res.send("Single comment")
 }
 
 const comment_post = (req, res) => {
-    res.send("Post comment")
+    res.send("Post the comment")
 };
 
 const comment_update = (req, res) => {

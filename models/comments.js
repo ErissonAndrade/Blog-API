@@ -5,7 +5,6 @@ const { Schema } = mongoose;
 
 const CommentsSchema = new Schema({
   user: { type: String, required: true},
-  title: { type: String },
   date: { type: Date, required: true },
   message: { type: String, required: true },
 });
