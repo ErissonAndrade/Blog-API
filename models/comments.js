@@ -7,6 +7,7 @@ const CommentsSchema = new Schema({
   user: { type: String, required: true},
   date: { type: Date, required: true },
   message: { type: String, required: true },
+  lastUpdate: { type: Date }
 });
 
 CommentsSchema.virtual('date_formatted').get(function () {

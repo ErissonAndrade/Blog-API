@@ -26,6 +26,6 @@ app.get("/", (req, res) => {
 
 app.use("/posts", postsRouter);
 
-app.use("/posts/:postid/comments", commentsRouter)
+app.use("/posts/:postId/comments", commentsRouter)
 
 app.listen(3000);

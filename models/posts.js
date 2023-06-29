@@ -7,6 +7,7 @@ const PostsSchema = new Schema({
     title: {type: String, required: true},
     date: { type: Date, required: true},
     text: { type: String, required: true},
+    lastUpdate: { type: Date},
     comments: [{ type: Schema.Types.ObjectId, ref: "Comments"}]
 });
 

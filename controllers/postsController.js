@@ -1,6 +1,6 @@
 import Post from '../models/posts.js';
 
-const allPosts_get = async (req, res) => {
+const allPosts_get = async (req, res, next) => {
     try {
         const posts = await Post.find();
         return res.status(200).json(posts);
@@ -11,9 +11,9 @@ const allPosts_get = async (req, res) => {
     }
 };
 
-const post_get = async (req, res) => {
+const post_get = async (req, res, next) => {
     try {
-        const post = await Post.findById(req.params.postId);
+        const post = await Post.findById(req.params.postId).populate("comments");
         return res.status(200).json(post);
     } catch (error) {
         console.error(error);
@@ -22,7 +22,7 @@ const post_get = async (req, res) => {
     }
 }
 
-const post_post = async (req, res) => {
+const post_post = async (req, res, next) => {
     try {
         const { title, text } = req.body
         const post = new Post({
@@ -31,18 +31,23 @@ const post_post = async (req, res) => {
             text: text
         });
         await post.save();
-        return res.status(200);
+        return res.status(200).json({ message: 'Post created successfully' });
     } catch(error) {
         console.error(error);
         next(error);
-        return res.status(500).json({ error: 'An error occurred' });
+        return res.status(500).json({ error: 'An error occurred' })
     }
 };
 
-const post_update = async (req, res) => {
+const post_update = async (req, res, next) => {
+    const { title, text } = req.body
     try {
-        const post = await Post.findByIdAndUpdate(req.params.postId);
-        return res.status(200);
+        await Post.findByIdAndUpdate(req.params.postId, {
+            title: title,
+            text: text,
+            lastUpdate: new Date()
+        });
+        return res.status(200).json({ message: 'Post updated successfully' });
     } catch (error) {
         console.error(error);
         next(error);
@@ -50,10 +55,10 @@ const post_update = async (req, res) => {
     }
 };
 
-const post_delete = async (req, res) => {
+const post_delete = async (req, res, next) => {
     try {
-        const post = await Post.findByIdAndDelete(req.params.postId);
-        return res.status(200);
+        await Post.findByIdAndDelete(req.params.postId);
+        return res.status(200).json({ message: 'Post deleted successfully' });
     } catch (error) {
         console.error(error);
         next(error);

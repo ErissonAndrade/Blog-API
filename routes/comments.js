@@ -1,7 +1,7 @@
 import express from 'express';
 import commentsController from '../controllers/commentsController.js';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.get('/', commentsController.allComments_get);
 
