@@ -45,11 +45,11 @@ const comment_post = async (req, res, next) => {
 };
 
 const comment_update = async (req, res, next) => {
-    const { title, text } = req.body
+    const { user, message } = req.body
     try {
         await Comment.findByIdAndUpdate(req.params.commentId, {
-            title: title,
-            text: text,
+            user: user,
+            message: message,
             lastUpdate: new Date()
         });
         return res.status(200).json({ message: 'Post updated successfully' });

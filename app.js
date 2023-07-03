@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv/config';
 import commentsRouter from './routes/comments.js';
 import postsRouter from './routes/posts.js';
+import loginRouter from './routes/login.js';
 
 
 const mongoDB = `mongodb+srv://${process.env.USER_ID}:${process.env.USER_PASSWORD}@cluster0.ifu8n0w.mongodb.net/?retryWrites=true&w=majority`;
@@ -23,6 +24,8 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
     res.send("Home Page")
 });
+
+app.use("/login", loginRouter);
 
 app.use("/posts", postsRouter);
 
