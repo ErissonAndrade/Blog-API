@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/users.js';
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
+import dotenv from 'dotenv/config'
 
 const login_post = async (req, res, next) => {
     try {
@@ -24,9 +25,9 @@ const login_post = async (req, res, next) => {
             if (result) {
                 const opts = {};
                 opts.expiresIn = '2d';
-                const token = jwt.sign({user}, process.env.SECRET_KEY, opts)
+                const token = jwt.sign({ userId: getUser._id }, process.env.SECRET_KEY, opts)
                 return res.status(200).json({
-                    user,
+                    message: "Authorized!",
                     token
                 })
             }
@@ -36,7 +37,7 @@ const login_post = async (req, res, next) => {
                 })
             }
         });
-    } catch(err) {
+    } catch (err) {
         console.error(err);
         next(err);
     }
