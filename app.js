@@ -7,6 +7,7 @@ import postsRouter from './routes/posts.js';
 import loginRouter from './routes/login.js';
 import passport from 'passport';
 import jwtStrategy from './strategies/jwt.js';
+import cors from 'cors';
 
 
 const mongoDB = `mongodb+srv://${process.env.USER_ID}:${process.env.USER_PASSWORD}@cluster0.ifu8n0w.mongodb.net/?retryWrites=true&w=majority`;
@@ -25,6 +26,8 @@ passport.use(jwtStrategy);
 
 app.use(bodyParser.json());
 
+app.use(cors());
+
 app.get("/", (req, res) => {
     res.send("Home Page")
 });
@@ -35,4 +38,8 @@ app.use("/posts", postsRouter);
 
 app.use("/posts/:postId/comments", commentsRouter)
 
-app.listen(3000);
+const port = 5000;
+
+app.listen(port, () => {
+    console.log(`App listening on port ${port}!`)
+});

@@ -7,8 +7,9 @@ const PostsSchema = new Schema({
     title: {type: String, required: true},
     date: { type: Date, required: true},
     text: { type: String, required: true},
+    images: [{ type: Schema.Types.ObjectId, ref: 'Images'}],
     lastUpdate: { type: Date},
-    comments: [{ type: Schema.Types.ObjectId, ref: "Comments"}]
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comments'}]
 });
 
 PostsSchema.virtual('date_formatted').get(function() {
