@@ -18,6 +18,12 @@ PostsSchema.virtual('date_formatted').get(function() {
     return `${dateFormatted} ${timeFormatted}`
 });
 
+PostsSchema.virtual('url').get(function() {
+    return `/posts/${this._id}`;
+});
+
+PostsSchema.set('toJSON', { virtuals: true });
+
 export default  mongoose.model('Posts', PostsSchema);
 
 

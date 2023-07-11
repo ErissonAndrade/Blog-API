@@ -16,4 +16,6 @@ CommentsSchema.virtual('date_formatted').get(function () {
   return `${dateFormatted} ${timeFormatted}`;
 });
 
+CommentsSchema.set('toJSON', { virtuals: true });
+
 export default mongoose.model('Comments', CommentsSchema);
