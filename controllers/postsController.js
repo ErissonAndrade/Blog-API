@@ -1,8 +1,9 @@
 import Post from '../models/posts.js';
+import Images from '../models/images.js';
 
 const allPosts_get = async (req, res, next) => {
     try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('images');
         return res.status(200).json(posts);
     } catch (error) {
         console.error(error);
@@ -13,7 +14,7 @@ const allPosts_get = async (req, res, next) => {
 
 const post_get = async (req, res, next) => {
     try {
-        const post = await Post.findById(req.params.postId).populate("comments");
+        const post = await Post.findById(req.params.postId).populate('comments').populate('images');
         return res.status(200).json(post);
     } catch (error) {
         console.error(error);

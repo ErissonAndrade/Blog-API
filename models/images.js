@@ -7,4 +7,10 @@ const ImagesSchema = new Schema({
     name: {type: String, required: true}
 });
 
-export default mongoose.Model('Images', ImagesSchema);
+ImagesSchema.virtual('imageURL').get(function() {
+    return `data:image/jpeg;base64,${this.image.toString('base64')}`;
+});
+
+ImagesSchema.set('toJSON', { virtuals: true });
+
+export default mongoose.model('Images', ImagesSchema);

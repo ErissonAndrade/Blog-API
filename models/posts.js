@@ -22,6 +22,12 @@ PostsSchema.virtual('url').get(function() {
     return `/posts/${this._id}`;
 });
 
+PostsSchema.virtual('preview').get(function () {
+    const words = this.text.split(' ');
+    const previewWords = words.slice(0, 15);
+    return `${previewWords.join(' ')} ...`;
+});
+
 PostsSchema.set('toJSON', { virtuals: true });
 
 export default  mongoose.model('Posts', PostsSchema);
