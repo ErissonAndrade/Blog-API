@@ -9,7 +9,6 @@ import passport from 'passport';
 import jwtStrategy from './strategies/jwt.js';
 import cors from 'cors';
 
-
 const mongoDB = `mongodb+srv://${process.env.USER_ID}:${process.env.USER_PASSWORD}@cluster0.ifu8n0w.mongodb.net/?retryWrites=true&w=majority`;
 
 async function main() {
