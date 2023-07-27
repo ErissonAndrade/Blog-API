@@ -12,9 +12,9 @@ const jwtStrategy = new Strategy(opts, async(payload, done) => {
         const user = await User.findById(payload.userId);
         
         if(user) {
-            return done(null, user)
+            return done(null, user);
         } else {
-            return done(null, false)
+            return done(null, false);
         }
     } catch(err) {
         return done(err, false);
