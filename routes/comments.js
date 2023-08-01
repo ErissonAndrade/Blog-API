@@ -1,6 +1,6 @@
 import express from 'express';
 import commentsController from '../controllers/commentsController.js';
-import { requireAuth } from '../authMiddleware.js';
+import { requireAuth } from '../middlewares/authMiddleware.js';
 
 const router = express.Router({ mergeParams: true });
 

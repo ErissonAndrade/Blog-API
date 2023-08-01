@@ -55,7 +55,7 @@ const post_post = [
                 text: text
             });
             await post.save();
-            return res.status(200).json({ message: 'Post created successfully' });
+            return res.status(200).json({ message: 'Post created successfully!' });
         } catch (error) {
             console.error(error);
             next(error);

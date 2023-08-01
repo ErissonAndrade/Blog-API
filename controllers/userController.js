@@ -11,7 +11,12 @@ const login_post = async (req, res, next) => {
 
         if (!user) {
             return res.status(401).json({
-                message: "Please log in!"
+                message: 'Please log in!'
+            })
+        }
+        if(!getUser) {
+            return res.status(401).json({
+                message: 'Invalid username or password.'
             })
         }
 
@@ -33,7 +38,7 @@ const login_post = async (req, res, next) => {
             }
             else {
                 return res.status(401).json({
-                    message: "Invalid username or password"
+                    message: "Invalid username or password."
                 })
             }
         });

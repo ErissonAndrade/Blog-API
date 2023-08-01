@@ -7,7 +7,7 @@ import loginRouter from './routes/login.js';
 import passport from 'passport';
 import jwtStrategy from './strategies/jwt.js';
 import cors from 'cors';
-import mongoConfig from './mongoConfig.js';
+import connectToRealDb from './mongoconfig/mongoConfig.js';
 
 const app = express();
 
@@ -29,6 +29,18 @@ app.use("/posts/:postId/comments", commentsRouter)
 
 const port = 5000;
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}!`)
-});
+async function main() {
+    try {
+        await connectToRealDb();
+
+        app.listen(port, () => {
+            console.log(`App listening on port ${port}!`)
+        });
+    }
+    catch(err) {
+        console.error(err);
+    }
+};
+
+main();
+
