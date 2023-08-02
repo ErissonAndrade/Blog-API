@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { DateTime } from 'luxon';
+const mongoose = require('mongoose');
+const { DateTime } = require('luxon');
 
 const { Schema } = mongoose;
 
@@ -18,4 +18,4 @@ CommentsSchema.virtual('date_formatted').get(function () {
 
 CommentsSchema.set('toJSON', { virtuals: true });
 
-export default mongoose.model('Comments', CommentsSchema);
+module.exports =  mongoose.model('Comments', CommentsSchema);

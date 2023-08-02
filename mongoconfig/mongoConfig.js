@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const mongoDB = `mongodb+srv://${process.env.USER_ID}:${process.env.USER_PASSWORD}@cluster0.ifu8n0w.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -13,4 +13,4 @@ async function connectToRealDataBase() {
     }
 };
 
-export default connectToRealDataBase;
+module.exports = connectToRealDataBase;

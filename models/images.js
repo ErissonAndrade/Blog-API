@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -13,4 +13,4 @@ ImagesSchema.virtual('imageURL').get(function() {
 
 ImagesSchema.set('toJSON', { virtuals: true });
 
-export default mongoose.model('Images', ImagesSchema);
+module.exports = mongoose.model('Images', ImagesSchema);

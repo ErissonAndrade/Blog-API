@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { DateTime } from 'luxon';
+const mongoose = require('mongoose');
+const { DateTime }  = require('luxon');
 
 const { Schema } = mongoose;
 
@@ -30,7 +30,7 @@ PostsSchema.virtual('preview').get(function () {
 
 PostsSchema.set('toJSON', { virtuals: true });
 
-export default  mongoose.model('Posts', PostsSchema);
+module.exports = mongoose.model('Posts', PostsSchema);
 
 
 

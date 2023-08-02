@@ -1,13 +1,13 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import dotenv from 'dotenv/config';
-import commentsRouter from './routes/comments.js';
-import postsRouter from './routes/posts.js';
-import loginRouter from './routes/login.js';
-import passport from 'passport';
-import jwtStrategy from './strategies/jwt.js';
-import cors from 'cors';
-import connectToRealDb from './mongoconfig/mongoConfig.js';
+const express = require('express');
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv/config');
+const commentsRouter = require('./routes/comments.js');
+const postsRouter = require('./routes/posts.js');
+const loginRouter = require('./routes/login.js');
+const passport = require('passport');
+const jwtStrategy = require('./strategies/jwt.js');
+const cors = require('cors');
+const connectToDb = require( './mongoconfig/mongoConfig.js');
 
 const app = express();
 
@@ -25,13 +25,13 @@ app.use("/login", loginRouter);
 
 app.use("/posts", postsRouter);
 
-app.use("/posts/:postId/comments", commentsRouter)
+app.use("/posts/:postId/comments", commentsRouter);
 
 const port = 5000;
 
 async function main() {
     try {
-        await connectToRealDb();
+        await connectToDb();
 
         app.listen(port, () => {
             console.log(`App listening on port ${port}!`)

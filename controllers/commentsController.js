@@ -1,6 +1,6 @@
-import Comment from '../models/comments.js'
-import Post from '../models/posts.js'
-import { body, validationResult } from 'express-validator';
+const Comment = require('../models/comments.js');
+const Post = require('../models/posts.js');
+const { body, validationResult } = require('express-validator');
 
 const commentsValidators = () => [
     body('user')
@@ -108,7 +108,7 @@ const comment_delete = async (req, res, next) => {
     }
 };
 
-export default {
+module.exports = {
     allComments_get,
     comment_get,
     comment_post,

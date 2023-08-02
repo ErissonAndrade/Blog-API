@@ -1,6 +1,6 @@
-import Post from '../models/posts.js';
-import Images from '../models/images.js';
-import { body, validationResult } from 'express-validator';
+const Post = require('../models/posts.js');
+const Images = require('../models/images.js');
+const { body, validationResult } = require('express-validator');
 
 const postsValidators = () => [
     body('title')
@@ -101,7 +101,7 @@ const post_delete = async (req, res, next) => {
     }
 };
 
-export default {
+module.exports =  {
     allPosts_get,
     post_get,
     post_post,

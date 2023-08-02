@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
-import User from '../models/users.js';
-import bcrypt from 'bcryptjs';
-import passport from 'passport';
-import dotenv from 'dotenv/config'
+const jwt = require('jsonwebtoken');
+const User = require('../models/users.js');
+const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const dotenv  = require('dotenv/config');
 
 const login_post = async (req, res, next) => {
     try {
@@ -48,6 +48,6 @@ const login_post = async (req, res, next) => {
     }
 };
 
-export default {
+module.exports = {
     login_post
 };

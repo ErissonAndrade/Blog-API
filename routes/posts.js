@@ -1,6 +1,6 @@
-import express from 'express';
-import postsController from '../controllers/postsController.js';
-import { requireAuth } from '../middlewares/authMiddleware.js';
+const express = require( 'express');
+const postsController = require( '../controllers/postsController.js');
+const { requireAuth } = require( '../middlewares/authMiddleware.js');
 
 const router = express.Router();
 
@@ -14,4 +14,4 @@ router.put('/:postId', requireAuth, postsController.post_update);
 
 router.delete('/:postId', requireAuth, postsController.post_delete);
 
-export default router;
+module.exports = router;

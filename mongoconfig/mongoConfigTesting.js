@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+const mongoose = require('mongoose');
+const MongoMemoryServer = require('mongodb-memory-server');
 
 
 async function initializeMongoServer() {
@@ -16,4 +16,4 @@ async function initializeMongoServer() {
   }
 };
 
-export default initializeMongoServer;
+module.exports = initializeMongoServer;

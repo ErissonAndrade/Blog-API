@@ -1,3 +1,3 @@
-import passport from 'passport';
+const passport = require('passport');
 
-export const requireAuth = passport.authenticate('jwt', { session: false });
+exports.requireAuth = passport.authenticate('jwt', { session: false });
