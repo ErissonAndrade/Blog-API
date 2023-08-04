@@ -9,6 +9,7 @@ const jwtStrategy = require('../../strategies/jwt.js');
 const request = require('supertest');
 const Post = require('../../models/posts.js');
 const Comment = require('../../models/comments.js');
+const User = require('../../models/users.js');
 const connectToMockDb = require('../../mongoconfig/mongoConfigTesting.js');
 const connectToRealDb = require('../../mongoconfig/mongoConfig.js');
 
@@ -20,15 +21,40 @@ passport.use(jwtStrategy);
 
 app.use(bodyParser.json());
 
+app.use('/login', loginRouter);
+
 app.use('/posts', postsRouter);
 
-function logIn() {
-    connectToRealDb();
-    request(app)
+const testUser = 'TestUser';
+const testPassword = 'testpassword';
+
+async function createMockUser() {
+    const newUser = new User({
+        user: testUser,
+        password: testPassword
+    })
+    await newUser.save();
+};
+
+async function createMockPost() {
+    const newPost = new Post({
+        title: 'Test title',
+        text: 'Test text',
+        date: new Date()
+    })
+    await newPost.save()
+
+    return newPost;
+};
+
+async function logInAndGetToken() {
+    const response = await request(app)
         .post('/login')
-        .send({user: process.env.ADMIN_ID, password: process.env.USER_ID});
-    mongoose.connection.close();    
-}
+        .send({ user: testUser, password: testPassword })
+        .expect(200);
+    
+    return response.body.token;
+};
 
 describe('Test get routes', () => {
     beforeAll(() => {
@@ -68,22 +94,62 @@ describe('Test get routes', () => {
     });
 });
 
-// describe('Test post route', () => {
-//     beforeAll(() => {
-//         logIn()
-//     });
-//     afterAll(() => {
-//         mongoose.connection.close();
-//     });
+describe('Test crud operations', () => {
+    let token; 
+    let post;
 
-//     it('Successfully logged in, create a new post', (done) => {
-//         connectToMockDb();
-//         request(app)
-//             .post('/posts')
-//             .send({id: process.env.ADMIN_ID, password: process.env.ADMIN_PASSWORD})
-//             .expect(200)
-//             .expect((response) => {
-//                 expect(response.body.message).toBe("Post created successfully!")
-//             })
-//     });
-// })
+    beforeAll(async () => {
+        await connectToMockDb();
+        await createMockUser();
+        post = await createMockPost();
+        token = await logInAndGetToken(); 
+    });
+
+    afterAll(() => {
+        mongoose.connection.close();
+    });
+
+    it('Create a new post', (done) => {
+        request(app)
+            .post('/posts')
+            .set('Authorization', `Bearer ${token}`)    
+            .send({ title: 'Test title', text: 'Test text' })
+            .expect(200)
+            .expect((response) => {
+                expect(response.body.message).toBe('Post created successfully!');
+            })
+            .end((err) => {
+                if (err) return done(err);
+                done();
+            });
+    });
+
+    it('Update the post', (done) => {
+        request(app)
+            .put(`/posts/${post._id}`)
+            .set('Authorization', `Bearer ${token}`)
+            .send({ title: 'Update test title', text: 'Update test text'})
+            .expect(200)
+            .expect((response) => {
+                expect(response.body.message).toBe('Post updated successfully')
+            })
+            .end((err) => {
+                if(err) return done(err)
+                done()
+            });     
+    });
+
+    it('Delete the post', (done) => {
+        request(app)
+            .delete(`/posts/${post._id}`)
+            .set('Authorization', `Bearer ${token}`)
+            .expect(200)
+            .expect((response) => {
+                expect(response.body.message).toBe('Post deleted successfully')
+            })
+            .end((err) => {
+                if(err) return done(err)
+                done()
+            });
+    });
+});
