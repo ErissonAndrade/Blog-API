@@ -1,26 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv/config');
-const postsRouter = require('../posts.js');
-const loginRouter = require('../login.js');
-const passport = require('passport');
-const jwtStrategy = require('../../strategies/jwt.js');
 const request = require('supertest');
-const Post = require('../../models/posts.js');
-const Comment = require('../../models/comments.js');
-const initializeMongoServer = require('../../mongoconfig/mongoConfigTesting.js');
 const connectToRealDb = require('../../mongoconfig/mongoConfig.js');
-
-const app = express();
-
-app.use(express.urlencoded({ extended: false }));
-
-passport.use(jwtStrategy);
-
-app.use(bodyParser.json());
-
-app.use('/login', loginRouter)
+const { app } = require('../setupTests.js');
 
 describe('Test login routes', () => {
     beforeAll(() => {
