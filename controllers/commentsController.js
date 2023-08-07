@@ -62,8 +62,9 @@ const comment_post = [
             await newComment.save();
             await Post.findByIdAndUpdate(req.params.postId, {
                 $push: { comments: newComment }
-            })
-            return res.status(200).json({ message: 'Post created successfully' });
+            });
+            
+            return res.status(200).json({ message: 'Comment created successfully!' });
         } catch (error) {
             console.error(error);
             next(error);

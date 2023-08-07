@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv/config');
 const postsRouter = require('./posts.js');
 const loginRouter = require('./login.js');
+const commentsRouter = require('./comments.js');
 const passport = require('passport');
 const jwtStrategy = require('../strategies/jwt.js');
 const request = require('supertest');
@@ -24,6 +25,8 @@ app.use(bodyParser.json());
 app.use('/login', loginRouter);
 
 app.use('/posts', postsRouter);
+
+app.use('/posts/:postId/comments', commentsRouter);
 
 const testUser = 'TestUser';
 const testPassword = 'testpassword';
