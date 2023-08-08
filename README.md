@@ -16,26 +16,25 @@ Welcome to the Blog API repository! This project showcases a simple RESTful API 
 🚀 Quick Start:
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/yourusername/blog-api.git
    cd blog-api
-Install dependencies:
+   
+2. Install dependencies:
+   ```bash
+   npm install
 
-```bash
-npm install
-Set up environment variables:
+3. Set up environment variables:
+   Create a .env file and set your environment variables (such as database URL, secret key, etc.).
 
-Create a .env file and set your environment variables (such as database URL, secret key, etc.).
+4. Run the server:
+      ```bash
+      npm start
+   
+5. Run tests:
+      ```bash
+      npm test
 
-Run the server:
-
-```bash
-npm start
-Run tests:
-
-```bash
-npm test
 🧪 Testing:
 
 The project includes comprehensive tests using Supertest and Jest to ensure the reliability of the API endpoints. Tests cover various scenarios including user authentication, CRUD operations, and error handling.
