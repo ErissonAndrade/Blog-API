@@ -22,8 +22,7 @@ Welcome to the Blog API repository! This project showcases a simple RESTful API 
    cd blog-api
 Install dependencies:
 
-bash
-Copy code
+```bash
 npm install
 Set up environment variables:
 
@@ -31,13 +30,11 @@ Create a .env file and set your environment variables (such as database URL, sec
 
 Run the server:
 
-bash
-Copy code
+```bash
 npm start
 Run tests:
 
-bash
-Copy code
+```bash
 npm test
 🧪 Testing:
 
