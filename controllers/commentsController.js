@@ -6,7 +6,7 @@ const commentsValidators = () => [
     body('user')
         .isLength({ min: 1 })
         .withMessage('User must not be empty')
-        .isLength({ max: 10 })
+        .isLength({ max: 15 })
         .withMessage('Your user must not exceed 15 characters')
         .trim()
         .escape(),
@@ -89,7 +89,7 @@ const comment_update = [
                 message: message,
                 lastUpdate: new Date()
             });
-            return res.status(200).json({ message: 'Post updated successfully' });
+            return res.status(200).json({ message: 'Comment updated successfully!' });
         } catch (error) {
             console.error(error);
             next(error);
@@ -101,7 +101,7 @@ const comment_update = [
 const comment_delete = async (req, res, next) => {
     try {
         await Comment.findByIdAndDelete(req.params.commentId);
-        return res.status(200).json({ message: 'Post deleted successfully' });
+        return res.status(200).json({ message: 'Comment deleted successfully!' });
     } catch (error) {
         console.error(error);
         next(error);

@@ -1,6 +1,5 @@
-const express = require('express');
+const express = require('express'); 
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv/config');
 const postsRouter = require('./posts.js');
 const loginRouter = require('./login.js');
@@ -11,8 +10,6 @@ const request = require('supertest');
 const Post = require('../models/posts.js');
 const Comment = require('../models/comments.js');
 const User = require('../models/users.js');
-const connectToMockDb = require('../mongoconfig/mongoConfigTesting.js');
-const connectToRealDb = require('../mongoconfig/mongoConfig.js');
 
 const app = express();
 
@@ -53,8 +50,21 @@ async function createMockPost() {
         title: 'Test title',
         text: 'Test text',
         date: new Date()
-    })
-    await newPost.save()
+    });
+
+    await newPost.save();
+
+    const newComment = new Comment({
+        user: 'Test user',
+        message: 'Test message',
+        date: new Date()
+    });
+
+    await newComment.save();
+
+    await Post.findByIdAndUpdate(newPost._id, {
+        $push: {comments: newComment}
+    });
 
     return newPost;
 };
@@ -66,4 +76,4 @@ module.exports = {
     createMockUser,
     createMockPost,
     app
-}
+};

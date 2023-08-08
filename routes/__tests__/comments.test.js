@@ -55,7 +55,7 @@ describe('Comments get routes', () => {
     });
 });
 
-describe('Comments crud operations', () => {
+describe('Comments CRUD operations', () => {
     let postId
     let commentId
     let token
@@ -66,6 +66,7 @@ describe('Comments crud operations', () => {
         await createMockPost();
         token = await logInAndGetToken();
         postId = await getPostId();
+        commentId = await getCommentId();
     });
 
     afterAll(() => {
@@ -75,11 +76,39 @@ describe('Comments crud operations', () => {
     it('Create a comment in a post', (done) => {
         request(app)
             .post(`/posts/${postId}/comments`)
-            .set('Authorization', `Bearer ${token}`)
-            .send({user: 'User test', message: 'Test message'})
+            .send({user: 'User test', message: 'Test message', date: new Date()})
             .expect(200)
             .expect((response) => {
                 expect(response.body.message).toBe('Comment created successfully!')
+            })
+            .end((err) => {
+                if(err) return done(err)
+                done()
+            })
+    });
+
+    it('Update a comment in a post', (done) => {
+        request(app)
+            .put(`/posts/${postId}/comments/${commentId}`)
+            .set('Authorization', `Bearer ${token}`)
+            .send({user: 'User updated', message: 'Test message updated'})
+            .expect(200)
+            .expect((response) => {
+                expect(response.body.message).toBe('Comment updated successfully!')
+            })
+            .end((err) => {
+                if(err) return done(err)
+                done()
+            })
+    });
+
+    it('Delete a comment in a post', (done) => {
+        request(app)
+            .delete(`/posts/${postId}/comments/${commentId}`)
+            .set('Authorization', `Bearer ${token}`)
+            .expect(200)
+            .expect((response) => {
+                expect(response.body.message).toBe('Comment deleted successfully!')
             })
             .end((err) => {
                 if(err) return done(err)
